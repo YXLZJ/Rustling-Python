@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="stylesheets/bootstrap/dist/css/bootstrap.css">
+  </head>
+  <body>
+    <div class="jumbotron" id="screen">
+      <div class="container">
+        <div class="row">
+          <div class="col-6 mt-3">
+            <h1 class="mt-5">Rustlings-Python</h1>
+            <p class="mt-4">Rustlings-Python~当好您Python学习之路的车把手！</p>
+          </div>
+          <div class="col-6" id="sign">
+            <div class="modal-dialog" style="margin-top: 10%;">
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <h4 class="modal-title text-center" id="myModalLabel">开始学习吧</h4>
+                </div>
+                <div class="modal-body" id = "model-body">
+                  <div class="form-group">
+
+                    <input type="text" class="form-control" id="user" placeholder="用户名" autocomplete="off">
+                  </div>
+                  <div class="form-group">
+
+                    <input type="password" class="form-control" id="password" placeholder="密码" autocomplete="off">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default form-control col" id="sign_up">注册</button>
+                  <button type="button" class="btn btn-default form-control col" id="drop_user">注销</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="javascripts/jquery/dist/jquery.js"></script>
+    <script src="stylesheets/bootstrap/dist/js/bootstrap.js"></script>
+    <script>
+      $('#sign_up').click(()=>{
+        let user=$('#user').val();
+        let password=$('#password').val();
+        if(user==""||password==""){
+          console.error("用户名和密码均不能为空！")
+        }
+        let params={user:user,password:password};
+        $.post("/sign_up",params,(data,textStatus)=>{
+          if(data=="to short"){
+            alert("密码过短,请长于6个字符");
+          } else if(data=="ok"){
+            alert("注册成功，开始学习吧！");
+          } else {
+            alert("用户名已被注册~");
+          }
+        })
+      })
+      $('#drop_user').click(()=>{
+        let user=$('#user').val();
+        let password=$('#password').val();
+        let params={user:user,password:password};
+        $.ajax({
+          url:'/dropuser',
+          type: 'DELETE',
+          data: params,
+          success:(data,textStatus)=>{
+            if(data=="ok"){
+              alert("再见，是我不够好~_~");
+            }else if(data=="noneuser"){
+              alert("啊这，就没这账号啊~");
+            }else if(data=="wrongpassword"){
+              alert("你删别人的号干嘛。。。。");
+            }
+          }
+        })
+      })
+    </script>
+    <style>
+      html, body {
+        margin:0;
+        padding:0;
+      }
+      #screen{
+        height:100%;
+        width:100%;
+        background-image:url("images/IMG_4309.jpg");
+        background-size:cover;
+        margin:0;
+        border:0;
+        position:fixed;
+      }
+      
+      #sign{
+        margin-top: 0;
+      }
+      
+    </style>
+  </body>
+</html>

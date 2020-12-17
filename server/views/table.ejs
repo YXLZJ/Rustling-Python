@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Table - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"></div>
+                    <div class="sidebar-brand-text mx-3"><span>rustling-Python</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="table.html"><i class="fas fa-table"></i><span>Table</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/timu"><i class="fas fa-window-maximize"></i><span>题目管理</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Team</h3>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold">提交记录</p>
+                        </div>
+                        <div class="card-body">
+                            <div id="toolbar">
+                                <div class="my-container">
+                                    <label class="myLabel-content">userID</label>
+                                    <div class="myText-content">
+                                        <input id="userid" type="text" class="form-control" placeholder="请输入userID">
+                                    </div>
+                                </div>
+                                <div class="my-container">
+                                    <label class="myLabel-content">题目搜索</label>
+                                    <div class="myText-content">
+                                        <input id="questionname" type="text" class="form-control" placeholder="请输入题目">
+                                    </div>
+                                </div>
+                                <div class="my-container">
+                                    <p style="margin-bottom:0%;">是否通过？</p>
+                                    <select class="mb-3" id="ispass"> 
+                                        <option value ="ignore">我不介意</option>
+                                        <option value ="1">通过</option>
+                                        <option value ="0">未通过</option>
+                                    </select>
+                                </div>
+                                <div class="myBtn-content">
+                                    <button id="search" type="button" class="btn btn-primary">搜索</button>
+                                    <button id="reset" type="button" class="btn btn-default">重置</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>UserId</th>
+                                            <th>完成题目</th>
+                                            <th style="width: 110px;">是否通过</th>
+                                            <th>提交时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tb">
+                                    </tbody>
+                                    <tfoot>
+                                        <tr></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/chart.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+        var globaldata
+        function render(data) {
+            res=``;
+            data.forEach(element => {
+                node=`
+                <tr>
+                    <td>${element["user_id"]}</td>
+                    <td>${element["question_name"]}</td>
+                    <td>${element["ispass"]}</td>
+                    <td>${element["time"]}<br></td>
+                </tr>`
+                res+=node;
+            });
+            $("#tb").html(res)
+                    
+        }
+        $(document).ready(()=>{
+            $.get('/alldata',(data,textStatus)=>{
+                globaldata=data;
+                render(globaldata);
+            })
+        })
+        $("#reset").click(()=>{
+            render(globaldata);
+        })
+        $("#search").click(()=>{
+            // console.log("1111")
+            user_id=$("#userid").val();
+            questionname=$("#questionname").val();
+            ispass=$("#ispass").val();
+            // console.log(user_id.length);
+            // console.log(questionname.length);
+            // console.log(ispass);
+            afterflitter=[]
+            globaldata.forEach(element=>{
+                if(user_id==element["user_id"]||user_id.length==0){
+                    if(questionname==element["question_name"]||questionname.length==0){
+                        if(ispass==String(element["ispass"])||ispass=="ignore"){
+                            afterflitter.push(element);
+                        }
+                    }
+                }
+            })
+//            console.log(afterflitter);
+            render(afterflitter);
+        })
+    </script>
+</body>
+
+</html>

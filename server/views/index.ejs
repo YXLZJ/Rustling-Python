@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"></div>
+                    <div class="sidebar-brand-text mx-3"><span>rustling-Python</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Table</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/timu"><i class="fas fa-window-maximize"></i><span>题目管理</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark mb-0">&nbsp; 概况</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-primary py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>注册人数</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"><span id="usernumber">0</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-success py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>总题量</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"><span id="querynumber">0</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-info py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span">总正确率</span></div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="text-dark font-weight-bold h5 mb-0 mr-3"  id="correctrate"><span>50%</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>总提交数</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0"><span  id="totelsubmit">18</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7 col-xl-8" style="padding: 10;">
+                            <div class="bs-example" data-example-id="simple-table">
+                                排行榜
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>UserID</th>
+                                      <th>完成题目数量(有效提交)</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="paihang">
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7 col-xl-8" style="padding: 10;">
+                            <div class="bs-example" data-example-id="simple-table">
+                                难题榜(提交的题目中正确率的升序排列)
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>题目</th>
+                                      <th>正确率</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="nan">
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div div="row">
+                        <div class="col-lg-7 col-xl-8" style="padding: 10;">
+                            <div class="bs-example" data-example-id="simple-table">
+                                FIRST BLOOD(每道题的首次提交)
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>题目</th>
+                                      <th>UserID</th>
+                                      <th>提交时间</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="firstblood">
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7 col-xl-8" style="padding: 10;">
+                            <div class="bs-example" data-example-id="simple-table">
+                                百折不挠(一个人提交同一个题超过5次)
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>userID</th>
+                                      <th>题目</th>
+                                      <th>次数</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="nao">
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <script src="javascripts/jquery/dist/jquery.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/chart.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+        $(document).ready(()=>{
+            $('#usernumber').text("NULL");
+            $('#querynumber').text("NULL");
+            $('#correctrate').text("NULL");
+            $('#totelsubmit').text("NULL");
+            $.get("/basestatus",(data,status)=>{
+                $('#usernumber').text(data["usernum"].toString());
+                $('#querynumber').text(data["querynum"].toString());
+                $('#correctrate').text((data["correctrate"]*100).toString()+'\%');
+                $('#totelsubmit').text(data["tijiaonum"].toString());
+            })
+        })
+        $(document).ready(()=>{
+            $.get("/paihang",(data,status)=>{
+                res=``
+                for(i=0;i<data.length;i++){
+                    node=`
+                    <tr>
+                        <th scope="row">${i+1}</th>
+                        <td>${data[i]["now_renyuan"]}</td>
+                        <td>${data[i]["count"]}</td>
+                    </tr>
+                    `
+                    res=node+res;
+                }
+                $("#paihang").html(res);
+            })
+            $.get("/nan",(data,status)=>{
+                res=``;
+                for(i=0;i<data.length;i++){
+                    node=`
+                    <tr>
+                        <th scope="row">${i+1}</th>
+                        <td>${data[i]["question"]}</td>
+                        <td>${data[i]["rate"]*100}\%</td>
+                    </tr>
+                    `
+                    res+=node;
+                }
+                $("#nan").html(res);
+            })
+            $.get("/firstblood",(data,status)=>{
+                res=``;
+                for(i=0;i<data.length;i++){
+                    node=`
+                    <tr>
+                        <th scope="row">${i+1}</th>
+                        <td>${data[i]["question_name"]}</td>
+                        <td>${data[i]["user_id"]}</td>
+                        <td>${data[i]["time"]}</td>
+                    </tr>
+                    `
+                    res+=node;
+                }
+                $("#firstblood").html(res);
+            })
+            $.get("/nao",(data,status)=>{
+                res=``;
+                for(i=0;i<data.length;i++){
+                    node=`
+                    <tr>
+                        <th scope="row">${i+1}</th>
+                        <td>${data[i]["user_id"]}</td>
+                        <td>${data[i]["question_name"]}</td>
+                        <td>${data[i]["count(*)"]}</td>
+                    </tr>
+                    `
+                    res+=node;
+                }
+                $("#nao").html(res);
+            })
+        })
+    </script>
+</body>
+</html>
